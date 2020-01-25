@@ -48,7 +48,8 @@ export const VALIDATION_ERRORS = {
     `Please enter exactly ${length} characters in this field`,
   EXACT_LENGTH_ZIPCODE: 'Invalid Zip code',
   IS_NAN: 'Please enter a number',
-  INVALID_PHONE_FORMAT: 'Please enter a valid phone format.'
+  INVALID_PHONE_FORMAT: 'Please enter a valid phone format.',
+  INVALID_DATA: 'Invalid data'
 };
 
 export const REGEX = {

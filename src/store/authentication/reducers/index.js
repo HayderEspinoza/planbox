@@ -18,10 +18,10 @@ export const checkTokenFetchStatus = createFetchStatusReducer.forAllRegisters({
 
 export const session = (state = null, action) => {
   switch (action.type) {
-    case types.LOGIN_SUCCESS: {
-      const { session } = action.payload;
-      return session;
-    }
+    case types.LOGIN_SUCCESS:
+      return action.payload;
+    case types.CHECK_TOKEN_SUCCESS:
+      return action.payload;
     case types.LOGOUT:
       return null;
     default:

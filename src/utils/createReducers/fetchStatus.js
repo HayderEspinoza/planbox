@@ -19,11 +19,9 @@ export function forAllRegisters({
       case FETCH_SUCCESS:
         return { status: REQUEST_STATUSES.LOADED, payload: action.payload };
       case FETCH_FAILURE: {
-        let { code, statusText } = action.payload;
         return {
           status: REQUEST_STATUSES.FAILED,
-          isError: code !== 409,
-          statusText
+          ...action.payload
         };
       }
       default:

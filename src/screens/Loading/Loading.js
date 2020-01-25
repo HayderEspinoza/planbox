@@ -12,13 +12,16 @@ class Loading extends PureComponent {
     }, 800);
   };
 
-  componentDidUpdate() {
+  componentDidUpdate = prevProps => {
     const { navigation, session, status } = this.props;
-    if (status === 'loaded' || status === 'failed') {
-      if (session) navigation.navigate('AuthStack');
+    if (
+      status !== prevProps.status &&
+      (status === 'loaded' || status === 'failed')
+    ) {
+      if (session) navigation.navigate('Home');
       else navigation.navigate('AuthStack');
     }
-  }
+  };
 
   render() {
     return (

@@ -6,13 +6,14 @@ import { COLORS } from '../../utils/constants';
 const FormField = props => {
   const {
     input: { name, onChange, onBlur, value },
-    meta: { error, touched },
+    meta: { error, dirty },
     label,
-    type
+    type,
+    ...rest
   } = props || false;
 
-  const is_error = error && touched;
-  const is_success = !error && touched;
+  const is_error = error && dirty;
+  const is_success = !error && dirty;
 
   let inputForm = (
     <Item
@@ -28,6 +29,7 @@ const FormField = props => {
         onChangeText={onChange}
         onBlur={onBlur}
         value={value}
+        {...rest}
       />
     </Item>
   );

@@ -12,8 +12,6 @@ const validate = values => {
 
   if (!password) {
     errors.password = VALIDATION_ERRORS.REQUIRED_FIELD;
-  } else if (password.length < 6) {
-    errors.password = VALIDATION_ERRORS.MIN_LENGTH(6);
   }
 
   return errors;

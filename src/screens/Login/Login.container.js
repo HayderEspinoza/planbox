@@ -7,7 +7,7 @@ const mapStateToProps = state => {
   const selector = selectors(state);
   const status = selector.getLogInStatus();
   const session = selector.getSession();
-  return { status, session };
+  return { status, session, ...status };
 };
 
 const mapDispatchToProps = dispatch => {

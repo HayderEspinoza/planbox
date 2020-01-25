@@ -4,6 +4,6 @@ import { fetchLogin, fetchLogOut, fetchCheckToken } from './fetch';
 
 export default function* root() {
   yield takeLatest(types.CHECK_TOKEN, fetchCheckToken);
-  // yield takeLatest(types.fetchLOGIN, fetchLogin);
+  yield takeLatest(types.LOGIN, fetchLogin);
   // yield takeLatest(types.fetchLOGOUT, fetchLogOut);
 }

@@ -17,8 +17,14 @@ const LoginForm = props => {
           component={FormField}
           label={'Email'}
           keyboardType={'email-address'}
+          style={{ color: '#fff' }}
         />
-        <Field name={'password'} component={FormField} label={'Password'} />
+        <Field
+          name={'password'}
+          component={FormField}
+          label={'Password'}
+          style={{ color: '#fff' }}
+        />
       </Form>
 
       <View style={styles.submitBtn}>
