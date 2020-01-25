@@ -5,11 +5,9 @@ import selectors from '../../store/authentication/reducers/selectors';
 
 const mapStateToProps = state => {
   const selector = selectors(state);
-  const session = selector.getSession();
+  const user = selector.getSession();
 
-  return {
-    session
-  };
+  return { user };
 };
 
 const mapDispatchToProps = dispatch => {

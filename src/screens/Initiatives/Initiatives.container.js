@@ -1,22 +1,22 @@
 import { connect } from 'react-redux';
 import Initiatives from './Initiatives';
-// import { checkToken } from '../../store/authentication/actions';
-// import selectors from '../../store/authentication/reducers/selectors';
+import { getInitiatives } from '../../store/initiatives/actions';
+import selectors from '../../store/initiatives/reducers/selectors';
 
 const mapStateToProps = state => {
-  // const selector = selectors(state);
-  // const session = selector.getSession();
-  // const status = selector.getCheckTokenStatus();
+  const selector = selectors(state);
+  const initiatives = selector.getInitiatives();
+  const status = selector.getInitiativesStatus();
 
   return {
-    // session,
-    // status
+    initiatives,
+    ...status
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // checkToken: () => dispatch(checkToken)
+    getInitiatives: () => dispatch(getInitiatives)
   };
 };
 

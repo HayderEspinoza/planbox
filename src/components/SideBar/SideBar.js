@@ -8,16 +8,14 @@ import { Container, Content, Text, Header, Thumbnail } from 'native-base';
 class SideBar extends PureComponent {
   render() {
     const {
-      session: { name, image, type }
+      user: { name, image }
     } = this.props;
+
     return (
       <Container>
         <View style={styles.container}>
-          <View>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.type}>Type: {type}</Text>
-          </View>
           <Thumbnail source={{ uri: image }} />
+          <Text style={styles.name}>{name}</Text>
         </View>
       </Container>
     );
@@ -33,8 +31,8 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
     borderBottomColor: '#E7ECF1',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 15,
     paddingBottom: 15,
     paddingTop: Platform.OS === 'ios' ? 60 : 20

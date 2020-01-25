@@ -12,10 +12,9 @@ api.interceptors.request.use(
     // Do something before request is sent
     try {
       let session = await getData('session');
-
       if (session) {
         session = JSON.parse(session);
-        config.headers['Authorization'] = `Token token=${session.token}`;
+        config.headers['Authorization'] = `Token token=${session.access_token}`;
       }
       return config;
     } catch (error) {
