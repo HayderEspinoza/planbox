@@ -29,7 +29,19 @@ export const session = (state = null, action) => {
   }
 };
 
+export const profile = (state = null, action) => {
+  switch (action.type) {
+    case types.LOGIN_SUCCESS:
+      return action.payload;
+    case types.CHECK_TOKEN_SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
+  profile,
   session,
   logInFetchStatus,
   checkTokenFetchStatus

@@ -1,9 +1,11 @@
 import { createStackNavigator } from 'react-navigation';
 import Initiatives from '../screens/Initiatives';
+import Iterations from '../screens/Iterations';
 
 const InitiativeStack = createStackNavigator(
   {
-    Initiatives: Initiatives
+    Initiatives: Initiatives,
+    Iterations: Iterations
   },
   {
     // initialRouteName: 'ChangePassword',

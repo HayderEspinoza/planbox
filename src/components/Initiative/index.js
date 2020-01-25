@@ -6,7 +6,7 @@ import { withNavigation } from 'react-navigation';
 const Initiative = ({ name, image, navigation, id }) => (
   <TouchableOpacity
     style={styles.container}
-    onPress={() => navigation.navigate('Items', { id })}>
+    onPress={() => navigation.navigate('Iterations', { id, name })}>
     <Thumbnail source={{ uri: image }} style={styles.image} />
     <Text style={styles.title}>{name}</Text>
   </TouchableOpacity>
