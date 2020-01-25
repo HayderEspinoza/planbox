@@ -18,7 +18,7 @@ class Loading extends PureComponent {
       status !== prevProps.status &&
       (status === 'loaded' || status === 'failed')
     ) {
-      if (session) navigation.navigate('Home');
+      if (session) navigation.navigate('Initiatives');
       else navigation.navigate('AuthStack');
     }
   };

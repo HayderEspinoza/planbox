@@ -17,7 +17,7 @@ class Login extends Component {
           { cancelable: false }
         );
       }
-      if (status === 'loaded' && session) navigation.navigate('Home');
+      if (status === 'loaded' && session) navigation.navigate('Initiatives');
     }
   };
 
@@ -30,10 +30,10 @@ class Login extends Component {
           <LoginForm
             logIn={logIn}
             loading={status === 'loading'}
-            initialValues={{
-              email: 'hespinoza@nativapps.co',
-              password: '1047459713hayder'
-            }}
+            // initialValues={{
+            //   email: 'hespinoza@nativapps.co',
+            //   password: '1047459713hayder'
+            // }}
           />
         </Content>
       </Container>
