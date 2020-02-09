@@ -27,6 +27,7 @@ class Iterations extends PureComponent {
   render() {
     const { navigation } = this.props;
     const name = navigation.getParam('name');
+
     return (
       <Container>
         <Header hasTabs>
@@ -47,17 +48,26 @@ class Iterations extends PureComponent {
           </Left>
         </Header>
         <Tabs>
-          <Tab heading="Current">
+          <Tab
+            heading="Current"
+            activeTextStyle={styles.active}
+            textStyle={styles.tabText}>
             <View>
               <Text>1</Text>
             </View>
           </Tab>
-          <Tab heading="Next">
+          <Tab
+            heading="Next"
+            activeTextStyle={styles.active}
+            textStyle={styles.tabText}>
             <View>
               <Text>2</Text>
             </View>
           </Tab>
-          <Tab heading="Backlog">
+          <Tab
+            heading="Backlog"
+            activeTextStyle={styles.active}
+            textStyle={styles.tabText}>
             <View>
               <Text>3</Text>
             </View>
@@ -74,7 +84,12 @@ Iterations.propTypes = {
 
 // define your styles
 const styles = StyleSheet.create({
-  container: {}
+  tabText: {
+    color: '#fff'
+  },
+  active: {
+    color: COLORS.SUCCESS
+  }
 });
 
 //make this component available to the app

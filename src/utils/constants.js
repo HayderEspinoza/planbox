@@ -65,5 +65,6 @@ export const IMAGES = {
 
 export const COLORS = {
   PRIMARY: '#25354a',
-  DANGER: '#f00'
+  DANGER: '#f00',
+  SUCCESS: '#009a9a'
 };

@@ -193,7 +193,7 @@ export default {
   tabBarTextColor: platform === PLATFORM.IOS ? '#6b6b6b' : '#b3c7f9',
   tabBarTextSize: platform === PLATFORM.IOS ? 14 : 11,
   activeTab: platform === PLATFORM.IOS ? '#007aff' : '#fff',
-  sTabBarActiveTextColor: '#007aff',
+  sTabBarActiveTextColor: '#f00',
   tabBarActiveTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#3F51B5',
 
@@ -207,7 +207,7 @@ export default {
   searchBarInputHeight: platform === PLATFORM.IOS ? 30 : 50,
   toolbarBtnTextColor: platform === PLATFORM.IOS ? '#007aff' : '#fff',
   toolbarDefaultBorder: platform === PLATFORM.IOS ? '#a7a6ab' : '#3F51B5',
-  iosStatusbar: platform === PLATFORM.IOS ? 'dark-content' : 'light-content',
+  iosStatusbar: 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)
@@ -282,7 +282,7 @@ export default {
   tabBarDisabledTextColor: '#fff',
   tabDefaultBg: '#25354a',
   topTabBarTextColor: '#fff',
-  topTabBarActiveTextColor: '#009a9a',
+  topTabBarActiveTextColor: '#0f0',
   topTabBarBorderColor: '#009a9a',
   topTabBarActiveBorderColor: '#009a9a',
 
