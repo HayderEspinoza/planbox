@@ -1,31 +1,82 @@
 //import libraries
 import React, { PureComponent } from 'react';
-import { View, StyleSheet, StatusBar, Image } from 'react-native';
-import { IMAGES, COLORS } from '../../utils/constants';
+import { StyleSheet } from 'react-native';
+import { ITERATIONS, COLORS } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import {
   Container,
   Header,
-  Text,
   Left,
   Body,
   Title,
   Button,
   Icon,
   Tabs,
-  Tab
+  Tab,
+  Fab
 } from 'native-base';
 import BackButton from '../../components/BackButton';
+import Next from './Next';
+import Current from './Current';
+import Backlog from './Backlog';
 
 // create a component
 class Iterations extends PureComponent {
+  state = {
+    activeTab: 0
+  };
+
   componentDidMount = () => {
-    const id = this.props.navigation.getParam('id');
-    console.log('id', id);
+    const { getCurrentItems, navigation, setInitiative } = this.props;
+    const id = navigation.getParam('id');
+    setInitiative(id);
+    getCurrentItems({ id });
+  };
+
+  selectTab = ({ i: activeTab }) => {
+    this.setState({ activeTab });
+    if (activeTab !== this.state.activeTab) this.getItems(activeTab);
+  };
+
+  refresh = () => {
+    const { activeTab } = this.state;
+    this.getItems(activeTab);
+  };
+
+  getItems(tab, filter = {}) {
+    const {
+      getCurrentItems,
+      getNextItems,
+      getBacklogItems,
+      initiative: id
+    } = this.props;
+
+    if (tab === 0) getCurrentItems({ id, ...filter });
+    if (tab === 1) getNextItems({ id, ...filter });
+    if (tab === 2) getBacklogItems({ id, ...filter });
+  }
+
+  loadMore = () => {
+    const { activeTab } = this.state;
+    let {
+      meta: { page, total_pages }
+    } = this.props[ITERATIONS[activeTab]];
+
+    if (page < total_pages)
+      this.getItems(activeTab, { 'page[number]': ++page });
   };
 
   render() {
-    const { navigation } = this.props;
+    const {
+      navigation,
+      current,
+      backlog,
+      next,
+      currentStatus,
+      nextStatus,
+      backlogStatus
+    } = this.props;
+
     const name = navigation.getParam('name');
 
     return (
@@ -47,39 +98,59 @@ class Iterations extends PureComponent {
             </Button>
           </Left>
         </Header>
-        <Tabs>
+
+        <Tabs onChangeTab={this.selectTab}>
           <Tab
             heading="Current"
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
-            <View>
-              <Text>1</Text>
-            </View>
+            <Current
+              items={current}
+              loading={currentStatus === 'loading'}
+              refresh={this.refresh}
+              loadMore={this.loadMore}
+            />
           </Tab>
           <Tab
             heading="Next"
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
-            <View>
-              <Text>2</Text>
-            </View>
+            <Next
+              items={next}
+              loading={nextStatus === 'loading'}
+              refresh={this.refresh}
+              loadMore={this.loadMore}
+            />
           </Tab>
           <Tab
             heading="Backlog"
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
-            <View>
-              <Text>3</Text>
-            </View>
+            <Backlog
+              items={backlog}
+              loading={backlogStatus === 'loading'}
+              refresh={this.refresh}
+              loadMore={this.loadMore}
+            />
           </Tab>
         </Tabs>
+        <Fab
+          direction="up"
+          position="bottomRight"
+          style={{ backgroundColor: COLORS.SUCCESS }}
+          // onPress={this._openModalCreate}
+        >
+          <Icon type={'FontAwesome5'} name={'plus'} />
+        </Fab>
       </Container>
     );
   }
 }
 
 Iterations.propTypes = {
-  checkToken: PropTypes.func.isRequired
+  getCurrentItems: PropTypes.func.isRequired,
+  getNextItems: PropTypes.func.isRequired,
+  getBacklogItems: PropTypes.func.isRequired
 };
 
 // define your styles

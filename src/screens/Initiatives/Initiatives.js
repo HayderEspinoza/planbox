@@ -1,6 +1,6 @@
 //import libraries
 import React, { PureComponent } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -39,16 +39,18 @@ class Initiatives extends PureComponent {
           </Body>
           <Left />
         </Header>
-        <FlatList
-          data={initiatives}
-          refreshing={status === 'loading'}
-          onRefresh={getInitiatives}
-          contentContainerStyle={styles.content}
-          renderItem={this._renderItem}
-          keyExtractor={item => `${item.id}`}
-          numColumns={2}
-          ListEmptyComponent={<Empty />}
-        />
+        <SafeAreaView style={styles.container}>
+          <FlatList
+            data={initiatives}
+            refreshing={status === 'loading'}
+            onRefresh={getInitiatives}
+            contentContainerStyle={styles.content}
+            renderItem={this._renderItem}
+            keyExtractor={item => `${item.id}`}
+            numColumns={2}
+            ListEmptyComponent={<Empty />}
+          />
+        </SafeAreaView>
       </Container>
     );
   }
@@ -60,9 +62,11 @@ Initiatives.propTypes = {
 
 // define your styles
 const styles = StyleSheet.create({
-  container: {},
-  content: {
+  container: {
     backgroundColor: '#f4f4f4',
+    flexGrow: 1
+  },
+  content: {
     alignItems: 'center',
     flex: 1
   }

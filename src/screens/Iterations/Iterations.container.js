@@ -1,22 +1,40 @@
 import { connect } from 'react-redux';
 import Iterations from './Iterations';
-import { checkToken } from '../../store/authentication/actions';
-import selectors from '../../store/authentication/reducers/selectors';
+import selectors from '../../store/initiatives/reducers/selectors';
+import {
+  setInitiative,
+  getCurrentItems,
+  getNextItems,
+  getBacklogItems
+} from '../../store/initiatives/actions';
 
 const mapStateToProps = state => {
   const selector = selectors(state);
-  const session = selector.getSession();
-  const status = selector.getCheckTokenStatus();
+  const currentStatus = selector.getCurrentStatus();
+  const nextStatus = selector.getNextStatus();
+  const backlogStatus = selector.getBacklogStatus();
+  const current = selector.getCurrentItems();
+  const next = selector.getNextItems();
+  const backlog = selector.getBacklogtItems();
+  const initiative = selector.getInitiative();
 
   return {
-    session,
-    status
+    current,
+    next,
+    backlog,
+    currentStatus,
+    nextStatus,
+    backlogStatus,
+    initiative
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkToken: () => dispatch(checkToken)
+    setInitiative: id => dispatch(setInitiative(id)),
+    getCurrentItems: data => dispatch(getCurrentItems(data)),
+    getNextItems: data => dispatch(getNextItems(data)),
+    getBacklogItems: data => dispatch(getBacklogItems(data))
   };
 };
 

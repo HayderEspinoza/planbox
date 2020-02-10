@@ -1,17 +1,14 @@
-// import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
-// import IconMoonConfig from '../assets/fonts/selection.json';
-
-// export const IconMoon = createIconSetFromIcoMoon(IconMoonConfig);
 export const API_URL = 'https://api.planbox.com';
-// export const OFFSET = 0;
-// export const LIMIT = 10;
-// export const ORDER = 'asc';
 
-// export const PAGINATION = {
-//   results: [],
-//   page: 0,
-//   total: 0
-// };
+export const PAGINATION = {
+  data: [],
+  meta: {
+    page: 1,
+    page_size: 10,
+    total_pages: 0,
+    total_count: 0
+  }
+};
 
 export const REQUEST_STATUSES = {
   NOT_LOADED: 'notLoaded',
@@ -25,19 +22,6 @@ export const STATUS_TYPE = {
   CREATE: 'create',
   UPDATE: 'update'
 };
-
-// export const SORT_BY = {
-//   DESC: 'desc',
-//   ASC: 'asc'
-// };
-
-// export const DEFAULT_QUERY_PARAMS = {
-//   offset: OFFSET,
-//   limit: LIMIT,
-//   order: ORDER,
-//   active: true,
-//   sort: 'name'
-// };
 
 export const VALIDATION_ERRORS = {
   REQUIRED_FIELD: 'This field is required.',
@@ -65,6 +49,36 @@ export const IMAGES = {
 
 export const COLORS = {
   PRIMARY: '#25354a',
-  DANGER: '#f00',
-  SUCCESS: '#009a9a'
+  DANGER: '#ff2929',
+  SUCCESS: '#009a9a',
+  BACKGROUND: '#25354a',
+  WARNING: '#ffc107',
+  RELEASED: '#0069d9'
+};
+
+export const ITERATIONS = ['current', 'next', 'backlog'];
+
+export const IMPORTANCE = [
+  'NA',
+  'Nice-to-have',
+  'Low',
+  'Normal',
+  'Hight',
+  'Critical'
+];
+
+export const POSITIONS = [
+  { value: 'bottom', label: 'Add to Bottom' },
+  { value: 'top', label: 'Add to Top' }
+];
+
+export const STATUS_COLOR = {
+  pending: COLORS.WARNING,
+  warning: COLORS.WARNING,
+  completed: COLORS.SUCCESS,
+  blocked: COLORS.DANGER,
+  released: COLORS.RELEASED,
+  rejected: COLORS.DANGER,
+  delivered: COLORS.SUCCESS,
+  inprogress: COLORS.DANGER
 };

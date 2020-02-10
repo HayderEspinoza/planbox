@@ -5,7 +5,11 @@ import { Text, View, Icon } from 'native-base';
 const Empty = () => (
   <View style={styles.container}>
     <View style={styles.wrapIcon}>
-      <Icon name={'question'} type={'AntDesign'} style={styles.icon} />
+      <Icon
+        name={'exclamationcircleo'}
+        type={'AntDesign'}
+        style={styles.icon}
+      />
     </View>
     <Text style={styles.text}>No results were found</Text>
   </View>
@@ -19,10 +23,7 @@ const styles = StyleSheet.create({
   },
   wrapIcon: {
     paddingHorizontal: 7,
-    paddingVertical: 7,
-    borderRadius: 40,
-    borderWidth: 2,
-    borderColor: '#f7f7f7'
+    paddingVertical: 7
   },
   icon: {
     fontSize: 38,
