@@ -1,6 +1,6 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, all } from 'redux-saga/effects';
 import * as actions from '../actions';
-import { getInitiatives, getItems } from '../../../api/initiative';
+import { getInitiatives, getItems, getProjects } from '../../../api/initiative';
 
 export function* fetchGetInitiatives({ payload }) {
   try {
@@ -78,5 +78,25 @@ export function* fetchGetBacklogItems({ payload }) {
       data: { message }
     } = error;
     yield put(actions.getBacklogItemsFailure({ code: status, message }));
+  }
+}
+
+export function* fetchGetUtils({ initiative }) {
+  try {
+    yield put(actions.getUtilsRequest);
+
+    let projectsList = {};
+    const { data: projects } = yield call(getProjects, initiative);
+    projects.forEach(({ id, alias }) => {
+      projectsList[`${id}`] = `${alias}`;
+    });
+
+    yield put(actions.getUtilsSuccess({ projects, projectsList }));
+  } catch (error) {
+    const {
+      status,
+      data: { message }
+    } = error;
+    yield put(actions.getUtilFailure({ code: status, message }));
   }
 }

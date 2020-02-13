@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { createFetchStatusReducer } from '../../../utils/createReducers';
 import types from '../actions/types';
 import { PAGINATION } from '../../../utils/constants';
+import actions from 'redux-form/lib/actions';
 
 export const getInitiativesFetchStatus = createFetchStatusReducer.forAllRegisters(
   {
@@ -38,6 +39,13 @@ export const getBacklogItemsFetchStatus = createFetchStatusReducer.forAllRegiste
     FETCH_FAILURE: types.GET_BACKLOG_ITEMS_FAILURE
   }
 );
+
+export const getUtilsFetchStatus = createFetchStatusReducer.forAllRegisters({
+  FETCH: types.GET_UTILS,
+  FETCH_REQUEST: types.GET_UTILS_REQUEST,
+  FETCH_SUCCESS: types.GET_UTILS_SUCCESS,
+  FETCH_FAILURE: types.GET_UTILS_FAILURE
+});
 
 export const entities = (state = null, action) => {
   switch (action.type) {
@@ -116,6 +124,30 @@ export const initiative = (state = null, action) => {
   }
 };
 
+export const projects = (state = {}, action) => {
+  const { payload } = action;
+  switch (action.type) {
+    case types.GET_UTILS_SUCCESS: {
+      const { projects } = payload;
+      return projects;
+    }
+    default:
+      return state;
+  }
+};
+
+export const projectsList = (state = {}, action) => {
+  const { payload } = action;
+  switch (action.type) {
+    case types.GET_UTILS_SUCCESS: {
+      const { projectsList } = payload;
+      return projectsList;
+    }
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   entities,
   initiative,
@@ -126,5 +158,8 @@ export default combineReducers({
   timeframe,
   backlog,
   next,
-  current
+  current,
+  projects,
+  projectsList,
+  getUtilsFetchStatus
 });

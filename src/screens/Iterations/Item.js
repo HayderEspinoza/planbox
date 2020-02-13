@@ -2,10 +2,13 @@ import React from 'react';
 import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Icon, Text, Thumbnail } from 'native-base';
 import { COLORS, STATUS_COLOR, IMPORTANCE } from '../../utils/constants';
+import { checkKey } from '../../utils/helpers';
 
-const Item = ({ name, kind, status, importance }) => {
+const Item = ({ name, kind, status, importance, projects, links }) => {
   const bgColor = STATUS_COLOR[status] || COLORS.PRIMARY;
   const labelColor = status === 'pending' ? '#000' : '#fff';
+  const project = checkKey(projects, links.project.linkage.id);
+
   return (
     <View style={[styles.container, { borderColor: bgColor }]}>
       <TouchableOpacity style={styles.content}>
@@ -23,7 +26,7 @@ const Item = ({ name, kind, status, importance }) => {
           <Text>{name}</Text>
           <View style={styles.wrapLabels}>
             <Text style={[styles.project, { textTransform: 'uppercase' }]}>
-              FROW
+              {project}
             </Text>
             <Text
               style={[
@@ -48,20 +51,21 @@ const Item = ({ name, kind, status, importance }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     borderRadius: 5,
     flexDirection: 'row',
     borderLeftWidth: 5,
     borderRadius: 2,
-    paddingVertical: 8,
     backgroundColor: '#fff',
     marginBottom: 5
   },
   content: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingVertical: 10
   },
   wrapImage: {
     paddingHorizontal: 4

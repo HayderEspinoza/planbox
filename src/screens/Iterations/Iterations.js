@@ -1,6 +1,6 @@
 //import libraries
 import React, { PureComponent } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ActivityIndicator, View } from 'react-native';
 import { ITERATIONS, COLORS } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import {
@@ -27,10 +27,10 @@ class Iterations extends PureComponent {
   };
 
   componentDidMount = () => {
-    const { getCurrentItems, navigation, setInitiative } = this.props;
-    const id = navigation.getParam('id');
-    setInitiative(id);
-    getCurrentItems({ id });
+    const id = this.props.navigation.getParam('id');
+    this.props.setInitiative(id);
+    this.props.getUtils(id);
+    this.props.getCurrentItems({ id });
   };
 
   selectTab = ({ i: activeTab }) => {
@@ -74,10 +74,21 @@ class Iterations extends PureComponent {
       next,
       currentStatus,
       nextStatus,
-      backlogStatus
+      backlogStatus,
+      projectsList,
+      utilsStatus
     } = this.props;
 
     const name = navigation.getParam('name');
+
+    if (utilsStatus !== 'loaded') {
+      return (
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator color={COLORS.PRIMARY} size={50} />
+        </View>
+      );
+    }
 
     return (
       <Container>
@@ -109,6 +120,7 @@ class Iterations extends PureComponent {
               loading={currentStatus === 'loading'}
               refresh={this.refresh}
               loadMore={this.loadMore}
+              projectsList={projectsList}
             />
           </Tab>
           <Tab
@@ -120,6 +132,7 @@ class Iterations extends PureComponent {
               loading={nextStatus === 'loading'}
               refresh={this.refresh}
               loadMore={this.loadMore}
+              projectsList={projectsList}
             />
           </Tab>
           <Tab
@@ -131,6 +144,7 @@ class Iterations extends PureComponent {
               loading={backlogStatus === 'loading'}
               refresh={this.refresh}
               loadMore={this.loadMore}
+              projectsList={projectsList}
             />
           </Tab>
         </Tabs>

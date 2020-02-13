@@ -4,7 +4,8 @@ import {
   fetchGetInitiatives,
   fetchGetCurrentItems,
   fetchGetNextItems,
-  fetchGetBacklogItems
+  fetchGetBacklogItems,
+  fetchGetUtils
 } from './fetch';
 
 export default function* root() {
@@ -12,4 +13,5 @@ export default function* root() {
   yield takeLatest(types.GET_CURRENT_ITEMS, fetchGetCurrentItems);
   yield takeLatest(types.GET_NEXT_ITEMS, fetchGetNextItems);
   yield takeLatest(types.GET_BACKLOG_ITEMS, fetchGetBacklogItems);
+  yield takeLatest(types.GET_UTILS, fetchGetUtils);
 }

@@ -84,3 +84,22 @@ export const setTimeFrame = timeframe => ({
   type: types.SET_TIMEFRAME,
   timeframe
 });
+
+export const getUtils = initiative => ({
+  type: types.GET_UTILS,
+  initiative
+});
+
+export const getUtilsRequest = {
+  type: types.GET_UTILS_REQUEST
+};
+
+export const getUtilsSuccess = payload => ({
+  type: types.GET_UTILS_SUCCESS,
+  payload
+});
+
+export const getUtilsFailure = payload => ({
+  type: types.GET_UTILS_FAILURE,
+  payload
+});

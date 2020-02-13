@@ -5,7 +5,8 @@ import {
   setInitiative,
   getCurrentItems,
   getNextItems,
-  getBacklogItems
+  getBacklogItems,
+  getUtils
 } from '../../store/initiatives/actions';
 
 const mapStateToProps = state => {
@@ -17,6 +18,8 @@ const mapStateToProps = state => {
   const next = selector.getNextItems();
   const backlog = selector.getBacklogtItems();
   const initiative = selector.getInitiative();
+  const utilsStatus = selector.getUtilsStatus();
+  const projectsList = selector.getProjectsList();
 
   return {
     current,
@@ -25,7 +28,9 @@ const mapStateToProps = state => {
     currentStatus,
     nextStatus,
     backlogStatus,
-    initiative
+    initiative,
+    utilsStatus,
+    projectsList
   };
 };
 
@@ -34,7 +39,8 @@ const mapDispatchToProps = dispatch => {
     setInitiative: id => dispatch(setInitiative(id)),
     getCurrentItems: data => dispatch(getCurrentItems(data)),
     getNextItems: data => dispatch(getNextItems(data)),
-    getBacklogItems: data => dispatch(getBacklogItems(data))
+    getBacklogItems: data => dispatch(getBacklogItems(data)),
+    getUtils: initiative => dispatch(getUtils(initiative))
   };
 };
 

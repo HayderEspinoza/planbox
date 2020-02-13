@@ -3,7 +3,13 @@ import { FlatList, StyleSheet, SafeAreaView } from 'react-native';
 import Item from './Item';
 import Empty from '../../components/Empty';
 
-const Current = ({ items: { data }, loading, refresh, loadMore }) => {
+const Current = ({
+  items: { data },
+  loading,
+  refresh,
+  loadMore,
+  projectsList
+}) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -11,7 +17,7 @@ const Current = ({ items: { data }, loading, refresh, loadMore }) => {
         refreshing={loading}
         onRefresh={refresh}
         contentContainerStyle={styles.list}
-        renderItem={({ item }) => <Item {...item} />}
+        renderItem={({ item }) => <Item {...item} projects={projectsList} />}
         keyExtractor={item => `${item.id}`}
         onEndReached={loadMore}
         onEndReachedThreshold={0.2}

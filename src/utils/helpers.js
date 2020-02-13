@@ -20,3 +20,7 @@ export const storeData = (name, value) => {
 export const removeData = name => {
   AsyncStorage.removeItem(name);
 };
+
+export const checkKey = (data, key) => {
+  return data.hasOwnProperty(`${key}`) ? data[key] : 'NA';
+};
