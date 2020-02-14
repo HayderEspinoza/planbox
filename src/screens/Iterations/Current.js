@@ -4,7 +4,7 @@ import Item from './Item';
 import Empty from '../../components/Empty';
 
 const Current = ({
-  items: { data },
+  items: { data, projects },
   loading,
   refresh,
   loadMore,
@@ -18,7 +18,7 @@ const Current = ({
       onRefresh={refresh}
       contentContainerStyle={styles.list}
       renderItem={({ item }) => (
-        <Item {...item} projects={projectsList} event={handleItem} />
+        <Item {...item} projects={projects} event={handleItem} />
       )}
       keyExtractor={item => `${item.id}`}
       onEndReached={loadMore}

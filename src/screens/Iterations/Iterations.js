@@ -85,7 +85,6 @@ class Iterations extends PureComponent {
       currentStatus,
       nextStatus,
       backlogStatus,
-      projectsList,
       utilsStatus
     } = this.props;
 
@@ -124,7 +123,6 @@ class Iterations extends PureComponent {
                 }
                 refresh={this.refresh}
                 loadMore={this.loadMore}
-                projectsList={projectsList}
                 handleItem={this.handleItem}
               />
             </SafeAreaView>
@@ -139,7 +137,6 @@ class Iterations extends PureComponent {
                 loading={nextStatus === 'loading' || utilsStatus !== 'loaded'}
                 refresh={this.refresh}
                 loadMore={this.loadMore}
-                projectsList={projectsList}
                 handleItem={this.handleItem}
               />
             </SafeAreaView>
@@ -156,7 +153,6 @@ class Iterations extends PureComponent {
                 }
                 refresh={this.refresh}
                 loadMore={this.loadMore}
-                projectsList={projectsList}
                 handleItem={this.handleItem}
               />
             </SafeAreaView>

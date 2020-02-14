@@ -18,7 +18,7 @@ const Timer = ({ iconName, time }) => {
 };
 
 const showInfo = description => {
-  Alert.alert('Description', description, [{ text: 'OK' }], {
+  Alert.alert('Task description', description, [{ text: 'OK' }], {
     cancelable: false
   });
 };

@@ -17,7 +17,9 @@ import {
   Tabs,
   Fab,
   Tab,
-  Text
+  Text,
+  TabHeading,
+  View
 } from 'native-base';
 import BackButton from '../../components/BackButton';
 import { COLORS } from '../../utils/constants';
@@ -30,7 +32,7 @@ class ItemDetail extends PureComponent {
   };
 
   showInfo = description => {
-    Alert.alert('Description', description, [{ text: 'OK' }], {
+    Alert.alert('Item description', description, [{ text: 'OK' }], {
       cancelable: false
     });
   };
@@ -41,7 +43,6 @@ class ItemDetail extends PureComponent {
         meta: { page, total_pages }
       }
     } = this.props;
-    console.log('pase por aqui');
 
     if (page < total_pages) {
       const { id: initiative } = this.props.navigation.getParam('item');
@@ -58,7 +59,8 @@ class ItemDetail extends PureComponent {
 
   render() {
     const { navigation, tasks, tasksStatus, usersList } = this.props;
-    const { name, description } = navigation.getParam('item');
+    const { name, description, links } = navigation.getParam('item');
+    console.log('link', links.attachments.linkage.length);
 
     return (
       <Container style={styles.container}>
@@ -98,7 +100,16 @@ class ItemDetail extends PureComponent {
           </Tab>
 
           <Tab
-            heading="Files"
+            heading={
+              <TabHeading>
+                <Text>Files</Text>
+                <View style={styles.badge}>
+                  <Text style={{ fontWeight: 'bold', fontSize: 13 }}>
+                    {links.attachments.linkage.length}
+                  </Text>
+                </View>
+              </TabHeading>
+            }
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
             <Text>2</Text>
@@ -147,6 +158,16 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flexGrow: 1
+  },
+  badge: {
+    backgroundColor: '#fff',
+    color: COLORS.PRIMARY,
+    fontSize: 13,
+    width: 17,
+    height: 17,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 

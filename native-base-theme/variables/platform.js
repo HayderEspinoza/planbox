@@ -4,6 +4,7 @@ import color from 'color';
 import { Platform, Dimensions, PixelRatio } from 'react-native';
 
 import { PLATFORM } from './commonColor';
+import { COLORS } from '../../src/utils/constants';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -282,7 +283,7 @@ export default {
   tabBarDisabledTextColor: '#fff',
   tabDefaultBg: '#25354a',
   topTabBarTextColor: '#fff',
-  topTabBarActiveTextColor: '#0f0',
+  topTabBarActiveTextColor: COLORS.SUCCESS,
   topTabBarBorderColor: '#009a9a',
   topTabBarActiveBorderColor: '#009a9a',
 

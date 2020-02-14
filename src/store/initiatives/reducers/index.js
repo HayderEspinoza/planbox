@@ -69,7 +69,9 @@ export const current = (state = PAGINATION, action) => {
     case types.GET_CURRENT_ITEMS_SUCCESS: {
       const { data } = state;
       const { data: incoming, meta } = payload;
-      return meta.page === 1 ? payload : { data: [...data, ...incoming], meta };
+      return meta.page === 1
+        ? payload
+        : { ...state, data: [...data, ...incoming], meta };
     }
     case types.SET_INITIATIVE:
       return PAGINATION;
@@ -85,7 +87,9 @@ export const next = (state = PAGINATION, action) => {
       const { data } = state;
       const { data: incoming, meta } = payload;
       if (!meta) return PAGINATION;
-      return meta.page === 1 ? payload : { data: [...data, ...incoming], meta };
+      return meta.page === 1
+        ? payload
+        : { ...state, data: [...data, ...incoming], meta };
     }
     case types.SET_INITIATIVE:
       return PAGINATION;
@@ -100,7 +104,9 @@ export const backlog = (state = PAGINATION, action) => {
     case types.GET_BACKLOG_ITEMS_SUCCESS: {
       const { data } = state;
       const { data: incoming, meta } = payload;
-      return meta.page === 1 ? payload : { data: [...data, ...incoming], meta };
+      return meta.page === 1
+        ? payload
+        : { ...state, data: [...data, ...incoming], meta };
     }
     case types.SET_INITIATIVE:
       return PAGINATION;

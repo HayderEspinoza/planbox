@@ -19,7 +19,6 @@ const mapStateToProps = state => {
   const backlog = selector.getBacklogtItems();
   const initiative = selector.getInitiative();
   const utilsStatus = selector.getUtilsStatus();
-  const projectsList = selector.getProjectsList();
 
   return {
     current,
@@ -29,8 +28,7 @@ const mapStateToProps = state => {
     nextStatus,
     backlogStatus,
     initiative,
-    utilsStatus,
-    projectsList
+    utilsStatus
   };
 };
 
