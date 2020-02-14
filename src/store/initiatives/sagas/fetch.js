@@ -6,7 +6,7 @@ import {
   getProjects,
   getUsers
 } from '../../../api/initiative';
-import { getTasks } from '../../../api/item';
+import { getTasks, getComments } from '../../../api/item';
 
 export function* fetchGetInitiatives({ payload }) {
   try {
@@ -35,8 +35,8 @@ export function* fetchGetUtils({ initiative }) {
       projectsList[`${id}`] = `${alias}`;
     });
 
-    users.forEach(({ id, image }) => {
-      if (image) usersList[`${id}`] = `${image}`;
+    users.forEach(({ id, image, ...rest }) => {
+      if (image) usersList[`${id}`] = { image: `${image}`, ...rest };
     });
 
     yield put(
@@ -122,20 +122,37 @@ export function* fetchGetBacklogItems({ payload }) {
 
 export function* fetchGetTasks({ payload }) {
   try {
-    const { initiative, rest } = payload;
+    const { item, ...rest } = payload;
 
-    const filter = new URLSearchParams({
-      ...rest
-    }).toString();
+    const filter = new URLSearchParams(rest).toString();
 
     yield put(actions.getTasksRequest);
-    const result = yield call(getTasks, initiative, filter);
+    const result = yield call(getTasks, item, filter);
     yield put(actions.getTasksSuccess(result));
   } catch (error) {
     const {
       status,
       data: { message }
     } = error;
-    yield put(actions.getItemsFailure({ code: status, message }));
+    yield put(actions.getTasksFailure({ code: status, message }));
+  }
+}
+
+export function* fetchGetComments({ payload }) {
+  try {
+    const { item, ...rest } = payload;
+
+    const filter = new URLSearchParams(rest).toString();
+
+    yield put(actions.getCommentsRequest);
+    const result = yield call(getComments, item, filter);
+    const users = yield select(state => state.initiatives.usersList);
+    yield put(actions.getCommentsSuccess({ ...result, users }));
+  } catch (error) {
+    const {
+      status,
+      data: { message }
+    } = error;
+    yield put(actions.getCommentsFailure({ code: status, message }));
   }
 }

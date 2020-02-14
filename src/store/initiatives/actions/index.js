@@ -122,3 +122,22 @@ export const getTasksFailure = payload => ({
   type: types.GET_TASKS_FAILURE,
   payload
 });
+
+export const getComments = payload => ({
+  type: types.GET_COMMENTS,
+  payload
+});
+
+export const getCommentsRequest = {
+  type: types.GET_COMMENTS_REQUEST
+};
+
+export const getCommentsSuccess = payload => ({
+  type: types.GET_COMMENTS_SUCCESS,
+  payload
+});
+
+export const getCommentsFailure = payload => ({
+  type: types.GET_COMMENTS_FAILURE,
+  payload
+});

@@ -6,7 +6,8 @@ import {
   fetchGetNextItems,
   fetchGetBacklogItems,
   fetchGetUtils,
-  fetchGetTasks
+  fetchGetTasks,
+  fetchGetComments
 } from './fetch';
 
 export default function* root() {
@@ -16,4 +17,5 @@ export default function* root() {
   yield takeLatest(types.GET_BACKLOG_ITEMS, fetchGetBacklogItems);
   yield takeLatest(types.GET_UTILS, fetchGetUtils);
   yield takeLatest(types.GET_TASKS, fetchGetTasks);
+  yield takeLatest(types.GET_COMMENTS, fetchGetComments);
 }

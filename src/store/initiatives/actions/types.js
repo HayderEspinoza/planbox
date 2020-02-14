@@ -8,5 +8,6 @@ export default {
   ...createActionTypes('INITIATIVES', 'GET_NEXT_ITEMS'),
   ...createActionTypes('INITIATIVES', 'GET_BACKLOG_ITEMS'),
   ...createActionTypes('INITIATIVES', 'GET_UTILS'),
-  ...createActionTypes('INITIATIVES', 'GET_TASKS')
+  ...createActionTypes('INITIATIVES', 'GET_TASKS'),
+  ...createActionTypes('INITIATIVES', 'GET_COMMENTS')
 };

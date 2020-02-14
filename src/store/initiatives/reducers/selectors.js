@@ -15,6 +15,8 @@ export default function selectors(globalState) {
   const getTasks = () => state.tasks;
   const getTasksStatus = () => state.getTasksFetchStatus.status;
   const getUsersList = () => state.usersList;
+  const getCommentsStatus = () => state.getCommentsFetchStatus.status;
+  const getComments = () => state.comments;
 
   return {
     getInitiative,
@@ -31,6 +33,8 @@ export default function selectors(globalState) {
     getProjectsList,
     getTasks,
     getTasksStatus,
-    getUsersList
+    getUsersList,
+    getCommentsStatus,
+    getComments
   };
 }

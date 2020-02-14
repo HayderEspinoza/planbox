@@ -24,11 +24,13 @@ import {
 import BackButton from '../../components/BackButton';
 import { COLORS } from '../../utils/constants';
 import Tasks from './Tasks';
+import Comments from './Comments';
 
 // create a component
 class ItemDetail extends PureComponent {
   componentDidMount = () => {
-    this.refreshTask();
+    this.getTasks();
+    this.getComments();
   };
 
   showInfo = description => {
@@ -45,22 +47,46 @@ class ItemDetail extends PureComponent {
     } = this.props;
 
     if (page < total_pages) {
-      const { id: initiative } = this.props.navigation.getParam('item');
-      this.props.getTasks({ initiative, 'page[number]': ++page });
+      const { id: item } = this.props.navigation.getParam('item');
+      this.props.getTasks({ item, 'page[number]': ++page });
+    }
+  };
+
+  loadMoreComments = () => {
+    let {
+      comments: {
+        meta: { page, total_pages }
+      }
+    } = this.props;
+
+    if (page < total_pages) {
+      const { id: item } = this.props.navigation.getParam('item');
+      this.props.getComments({ item, 'page[number]': ++page });
     }
   };
 
   selectTab = () => {};
 
-  refreshTask = () => {
-    const { id: initiative } = this.props.navigation.getParam('item');
-    this.props.getTasks({ initiative, 'page[number]': 0 });
+  getTasks = () => {
+    const { id: item } = this.props.navigation.getParam('item');
+    this.props.getTasks({ item, 'page[number]': 0 });
+  };
+
+  getComments = () => {
+    const { id: item } = this.props.navigation.getParam('item');
+    this.props.getComments({ item, 'page[number]': 0 });
   };
 
   render() {
-    const { navigation, tasks, tasksStatus, usersList } = this.props;
+    const {
+      navigation,
+      tasks,
+      tasksStatus,
+      usersList,
+      comments,
+      commentsStatus
+    } = this.props;
     const { name, description, links } = navigation.getParam('item');
-    console.log('link', links.attachments.linkage.length);
 
     return (
       <Container style={styles.container}>
@@ -93,7 +119,7 @@ class ItemDetail extends PureComponent {
                 tasks={tasks}
                 loading={tasksStatus === 'loading'}
                 handleOptions={() => alert('prueba')}
-                refresh={this.refreshTask}
+                refresh={this.getTasks}
                 loadMore={this.loadMoreTasks}
               />
             </SafeAreaView>
@@ -119,7 +145,13 @@ class ItemDetail extends PureComponent {
             heading="Comments"
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
-            <Text>3</Text>
+            <Comments
+              comments={comments}
+              loading={commentsStatus === 'loading'}
+              handleOption={() => alert('remove')}
+              refresh={this.getComments}
+              loadMore={this.loadMoreComments}
+            />
           </Tab>
         </Tabs>
 
@@ -137,7 +169,8 @@ class ItemDetail extends PureComponent {
 }
 
 ItemDetail.propTypes = {
-  // getInitiatives: PropTypes.func.isRequired
+  getTasks: PropTypes.func.isRequired,
+  getComments: PropTypes.func.isRequired
 };
 
 // define your styles
@@ -167,7 +200,8 @@ const styles = StyleSheet.create({
     height: 17,
     borderRadius: 10,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: -4
   }
 });
 

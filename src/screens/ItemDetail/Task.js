@@ -53,7 +53,7 @@ const Task = props => {
           <Thumbnail
             small
             style={styles.image}
-            source={user ? { uri: user } : IMAGES.USER}
+            source={user ? { uri: user.image } : IMAGES.USER}
             resizeMode={'contain'}
           />
           <View style={{ flex: 1, flexDirection: 'row' }}>

@@ -54,6 +54,13 @@ export const getTasksFetchStatus = createFetchStatusReducer.forAllRegisters({
   FETCH_FAILURE: types.GET_TASKS_FAILURE
 });
 
+export const getCommentsFetchStatus = createFetchStatusReducer.forAllRegisters({
+  FETCH: types.GET_COMMENTS,
+  FETCH_REQUEST: types.GET_COMMENTS_REQUEST,
+  FETCH_SUCCESS: types.GET_COMMENTS_SUCCESS,
+  FETCH_FAILURE: types.GET_COMMENTS_FAILURE
+});
+
 export const entities = (state = null, action) => {
   switch (action.type) {
     case types.GET_INITIATIVES_SUCCESS:
@@ -200,6 +207,23 @@ export const tasks = (state = PAGINATION, action) => {
   }
 };
 
+export const comments = (state = PAGINATION, action) => {
+  const { payload } = action;
+  switch (action.type) {
+    case types.GET_COMMENTS_SUCCESS: {
+      const { data } = state;
+      const { data: incoming, meta } = payload;
+      return meta.page === 1
+        ? payload
+        : { ...state, data: [...data, ...incoming], meta };
+    }
+    // case types.SET_INITIATIVE:
+    //   return PAGINATION;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   next,
   tasks,
@@ -208,6 +232,7 @@ export default combineReducers({
   backlog,
   projects,
   entities,
+  comments,
   usersList,
   timeframe,
   initiative,
@@ -217,5 +242,6 @@ export default combineReducers({
   getNextItemsFetchStatus,
   getInitiativesFetchStatus,
   getCurrentItemsFetchStatus,
-  getBacklogItemsFetchStatus
+  getBacklogItemsFetchStatus,
+  getCommentsFetchStatus
 });
