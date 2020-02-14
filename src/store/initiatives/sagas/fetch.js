@@ -1,6 +1,12 @@
 import { call, put, all } from 'redux-saga/effects';
 import * as actions from '../actions';
-import { getInitiatives, getItems, getProjects } from '../../../api/initiative';
+import {
+  getInitiatives,
+  getItems,
+  getProjects,
+  getUsers
+} from '../../../api/initiative';
+import { getTasks } from '../../../api/item';
 
 export function* fetchGetInitiatives({ payload }) {
   try {
@@ -69,6 +75,7 @@ export function* fetchGetBacklogItems({ payload }) {
       timeframe: 'backlog',
       ...rest
     }).toString();
+
     const results = yield call(getItems, id, filter);
 
     yield put(actions.getBacklogItemsSuccess(results));
@@ -86,17 +93,46 @@ export function* fetchGetUtils({ initiative }) {
     yield put(actions.getUtilsRequest);
 
     let projectsList = {};
+    let usersList = {};
     const { data: projects } = yield call(getProjects, initiative);
+    const { included: users } = yield call(getUsers, initiative);
+
     projects.forEach(({ id, alias }) => {
       projectsList[`${id}`] = `${alias}`;
     });
 
-    yield put(actions.getUtilsSuccess({ projects, projectsList }));
+    users.forEach(({ id, image }) => {
+      if (image) usersList[`${id}`] = `${image}`;
+    });
+
+    yield put(
+      actions.getUtilsSuccess({ projects, projectsList, users, usersList })
+    );
   } catch (error) {
     const {
       status,
       data: { message }
     } = error;
     yield put(actions.getUtilFailure({ code: status, message }));
+  }
+}
+
+export function* fetchGetTasks({ payload }) {
+  try {
+    const { initiative, rest } = payload;
+
+    const filter = new URLSearchParams({
+      ...rest
+    }).toString();
+
+    yield put(actions.getTasksRequest);
+    const result = yield call(getTasks, initiative, filter);
+    yield put(actions.getTasksSuccess(result));
+  } catch (error) {
+    const {
+      status,
+      data: { message }
+    } = error;
+    yield put(actions.getItemsFailure({ code: status, message }));
   }
 }

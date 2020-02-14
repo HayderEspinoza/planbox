@@ -12,6 +12,9 @@ export default function selectors(globalState) {
   const getUtilsStatus = () => state.getUtilsFetchStatus.status;
   const getProjects = () => state.projects;
   const getProjectsList = () => state.projectsList;
+  const getTasks = () => state.tasks;
+  const getTasksStatus = () => state.getTasksFetchStatus.status;
+  const getUsersList = () => state.usersList;
 
   return {
     getInitiative,
@@ -25,6 +28,9 @@ export default function selectors(globalState) {
     getBacklogStatus,
     getUtilsStatus,
     getProjects,
-    getProjectsList
+    getProjectsList,
+    getTasks,
+    getTasksStatus,
+    getUsersList
   };
 }

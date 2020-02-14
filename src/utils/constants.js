@@ -44,7 +44,8 @@ export const REGEX = {
 };
 
 export const IMAGES = {
-  LOGO: require('../assets/images/logo.png')
+  LOGO: require('../assets/images/logo.png'),
+  USER: require('../assets/images/user.png')
 };
 
 export const COLORS = {

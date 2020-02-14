@@ -1,6 +1,6 @@
 //import libraries
 import React, { PureComponent } from 'react';
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { ITERATIONS, COLORS } from '../../utils/constants';
 import PropTypes from 'prop-types';
 import {
@@ -28,9 +28,15 @@ class Iterations extends PureComponent {
 
   componentDidMount = () => {
     const id = this.props.navigation.getParam('id');
-    this.props.setInitiative(id);
     this.props.getUtils(id);
-    this.props.getCurrentItems({ id });
+    this.props.setInitiative(id);
+  };
+
+  componentDidUpdate = prevProps => {
+    const { utilsStatus, initiative, getCurrentItems } = this.props;
+    if (prevProps.utilsStatus !== utilsStatus && utilsStatus === 'loaded') {
+      getCurrentItems({ id: initiative });
+    }
   };
 
   selectTab = ({ i: activeTab }) => {
@@ -66,6 +72,10 @@ class Iterations extends PureComponent {
       this.getItems(activeTab, { 'page[number]': ++page });
   };
 
+  handleItem = item => {
+    this.props.navigation.navigate('ItemDetail', { item });
+  };
+
   render() {
     const {
       navigation,
@@ -80,15 +90,6 @@ class Iterations extends PureComponent {
     } = this.props;
 
     const name = navigation.getParam('name');
-
-    if (utilsStatus !== 'loaded') {
-      return (
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator color={COLORS.PRIMARY} size={50} />
-        </View>
-      );
-    }
 
     return (
       <Container>
@@ -115,39 +116,53 @@ class Iterations extends PureComponent {
             heading="Current"
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
-            <Current
-              items={current}
-              loading={currentStatus === 'loading'}
-              refresh={this.refresh}
-              loadMore={this.loadMore}
-              projectsList={projectsList}
-            />
+            <SafeAreaView style={styles.safeArea}>
+              <Current
+                items={current}
+                loading={
+                  currentStatus === 'loading' || utilsStatus !== 'loaded'
+                }
+                refresh={this.refresh}
+                loadMore={this.loadMore}
+                projectsList={projectsList}
+                handleItem={this.handleItem}
+              />
+            </SafeAreaView>
           </Tab>
           <Tab
             heading="Next"
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
-            <Next
-              items={next}
-              loading={nextStatus === 'loading'}
-              refresh={this.refresh}
-              loadMore={this.loadMore}
-              projectsList={projectsList}
-            />
+            <SafeAreaView style={styles.safeArea}>
+              <Next
+                items={next}
+                loading={nextStatus === 'loading' || utilsStatus !== 'loaded'}
+                refresh={this.refresh}
+                loadMore={this.loadMore}
+                projectsList={projectsList}
+                handleItem={this.handleItem}
+              />
+            </SafeAreaView>
           </Tab>
           <Tab
             heading="Backlog"
             activeTextStyle={styles.active}
             textStyle={styles.tabText}>
-            <Backlog
-              items={backlog}
-              loading={backlogStatus === 'loading'}
-              refresh={this.refresh}
-              loadMore={this.loadMore}
-              projectsList={projectsList}
-            />
+            <SafeAreaView style={styles.safeArea}>
+              <Backlog
+                items={backlog}
+                loading={
+                  backlogStatus === 'loading' || utilsStatus !== 'loaded'
+                }
+                refresh={this.refresh}
+                loadMore={this.loadMore}
+                projectsList={projectsList}
+                handleItem={this.handleItem}
+              />
+            </SafeAreaView>
           </Tab>
         </Tabs>
+
         <Fab
           direction="up"
           position="bottomRight"
@@ -169,6 +184,10 @@ Iterations.propTypes = {
 
 // define your styles
 const styles = StyleSheet.create({
+  safeArea: {
+    flexGrow: 1,
+    backgroundColor: '#f7f7f7'
+  },
   tabText: {
     color: '#fff'
   },

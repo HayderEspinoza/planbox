@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, SafeAreaView } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import Item from './Item';
 import Empty from '../../components/Empty';
 
@@ -8,22 +8,23 @@ const Next = ({
   loading,
   refresh,
   loadMore,
-  projectsList
+  projectsList,
+  handleItem
 }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        refreshing={loading}
-        onRefresh={refresh}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => <Item {...item} projects={projectsList} />}
-        keyExtractor={item => `${item.id}`}
-        onEndReached={loadMore}
-        onEndReachedThreshold={0.2}
-        ListEmptyComponent={<Empty />}
-      />
-    </SafeAreaView>
+    <FlatList
+      data={data}
+      refreshing={loading}
+      onRefresh={refresh}
+      contentContainerStyle={styles.list}
+      renderItem={({ item }) => (
+        <Item {...item} projects={projectsList} event={handleItem} />
+      )}
+      keyExtractor={item => `${item.id}`}
+      onEndReached={loadMore}
+      onEndReachedThreshold={0.2}
+      ListEmptyComponent={<Empty />}
+    />
   );
 };
 

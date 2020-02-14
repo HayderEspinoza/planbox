@@ -47,6 +47,13 @@ export const getUtilsFetchStatus = createFetchStatusReducer.forAllRegisters({
   FETCH_FAILURE: types.GET_UTILS_FAILURE
 });
 
+export const getTasksFetchStatus = createFetchStatusReducer.forAllRegisters({
+  FETCH: types.GET_TASKS,
+  FETCH_REQUEST: types.GET_TASKS_REQUEST,
+  FETCH_SUCCESS: types.GET_TASKS_SUCCESS,
+  FETCH_FAILURE: types.GET_TASKS_FAILURE
+});
+
 export const entities = (state = null, action) => {
   switch (action.type) {
     case types.GET_INITIATIVES_SUCCESS:
@@ -148,18 +155,61 @@ export const projectsList = (state = {}, action) => {
   }
 };
 
+export const users = (state = {}, action) => {
+  const { payload } = action;
+  switch (action.type) {
+    case types.GET_UTILS_SUCCESS: {
+      const { users } = payload;
+      return users;
+    }
+    default:
+      return state;
+  }
+};
+
+export const usersList = (state = {}, action) => {
+  const { payload } = action;
+  switch (action.type) {
+    case types.GET_UTILS_SUCCESS: {
+      const { usersList } = payload;
+      return usersList;
+    }
+    default:
+      return state;
+  }
+};
+
+export const tasks = (state = PAGINATION, action) => {
+  const { payload } = action;
+  switch (action.type) {
+    case types.GET_TASKS_SUCCESS: {
+      const { data } = state;
+      const { data: incoming, meta } = payload;
+      return meta.page === 1 ? payload : { data: [...data, ...incoming], meta };
+    }
+    case types.GET_TASKS_REQUEST:
+      return PAGINATION;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
+  next,
+  tasks,
+  users,
+  current,
+  backlog,
+  projects,
   entities,
+  usersList,
+  timeframe,
   initiative,
+  projectsList,
+  getUtilsFetchStatus,
+  getTasksFetchStatus,
+  getNextItemsFetchStatus,
   getInitiativesFetchStatus,
   getCurrentItemsFetchStatus,
-  getNextItemsFetchStatus,
-  getBacklogItemsFetchStatus,
-  timeframe,
-  backlog,
-  next,
-  current,
-  projects,
-  projectsList,
-  getUtilsFetchStatus
+  getBacklogItemsFetchStatus
 });

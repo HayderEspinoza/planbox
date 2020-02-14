@@ -17,3 +17,7 @@ export const getProjects = (initiativeId, filter = '') => {
 export const getItems = (initiativeId, filter = '') => {
   return api.get(`${baseUrl}/${initiativeId}/items?${filter}`);
 };
+
+export const getUsers = initiativeId => {
+  return api.get(`${baseUrl}/${initiativeId}/memberships`);
+};

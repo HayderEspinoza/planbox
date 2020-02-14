@@ -1,15 +1,15 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import Item from './Item';
 import Empty from '../../components/Empty';
+import Task from './Task';
 
-const Backlog = ({
-  items: { data },
+const Tasks = ({
+  tasks: { data },
   loading,
+  handleOptions,
+  users,
   refresh,
-  loadMore,
-  projectsList,
-  handleItem
+  loadMore
 }) => {
   return (
     <FlatList
@@ -18,7 +18,7 @@ const Backlog = ({
       onRefresh={refresh}
       contentContainerStyle={styles.list}
       renderItem={({ item }) => (
-        <Item {...item} projects={projectsList} event={handleItem} />
+        <Task {...item} handleOptions={handleOptions} users={users} />
       )}
       keyExtractor={item => `${item.id}`}
       onEndReached={loadMore}
@@ -29,15 +29,12 @@ const Backlog = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: '#f7f7f7'
-  },
   list: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingVertical: 10
+    paddingVertical: 10,
+    backgroundColor: '#f7f7f7'
   }
 });
 
-export default Backlog;
+export default Tasks;

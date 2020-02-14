@@ -4,14 +4,15 @@ import { Icon, Text, Thumbnail } from 'native-base';
 import { COLORS, STATUS_COLOR, IMPORTANCE } from '../../utils/constants';
 import { checkKey } from '../../utils/helpers';
 
-const Item = ({ name, kind, status, importance, projects, links }) => {
+const Item = props => {
+  const { name, kind, status, importance, projects, links, event } = props;
   const bgColor = STATUS_COLOR[status] || COLORS.PRIMARY;
   const labelColor = status === 'pending' ? '#000' : '#fff';
   const project = checkKey(projects, links.project.linkage.id);
 
   return (
     <View style={[styles.container, { borderColor: bgColor }]}>
-      <TouchableOpacity style={styles.content}>
+      <TouchableOpacity style={styles.content} onPress={() => event(props)}>
         <View style={styles.wrapImage}>
           <Thumbnail
             small
@@ -25,18 +26,18 @@ const Item = ({ name, kind, status, importance, projects, links }) => {
         <View style={{ flex: 1 }}>
           <Text>{name}</Text>
           <View style={styles.wrapLabels}>
-            <Text style={[styles.project, { textTransform: 'uppercase' }]}>
+            <Text style={[styles.label, { textTransform: 'uppercase' }]}>
               {project}
             </Text>
             <Text
               style={[
-                styles.project,
+                styles.label,
                 { backgroundColor: bgColor, color: labelColor }
               ]}>
               {status}
             </Text>
             {importance > 0 && (
-              <Text style={styles.project}>{IMPORTANCE[importance]}</Text>
+              <Text style={styles.label}>{IMPORTANCE[importance]}</Text>
             )}
           </View>
         </View>
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   wrapLabels: {
     flexDirection: 'row'
   },
-  project: {
+  label: {
     backgroundColor: '#f2f2f2',
     borderRadius: 2,
     paddingHorizontal: 5,

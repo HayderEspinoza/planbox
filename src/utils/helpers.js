@@ -24,3 +24,9 @@ export const removeData = name => {
 export const checkKey = (data, key) => {
   return data.hasOwnProperty(`${key}`) ? data[key] : 'NA';
 };
+
+export const formatHours = time => {
+  if (Number.isInteger(time)) return `${time}:00`;
+  let hours = Number(`${time}`.match(/^(\d+)/)[1]);
+  return `${hours}:${parseInt((time - hours) * 10 * 6)}`;
+};

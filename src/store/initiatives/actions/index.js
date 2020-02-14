@@ -103,3 +103,22 @@ export const getUtilsFailure = payload => ({
   type: types.GET_UTILS_FAILURE,
   payload
 });
+
+export const getTasks = payload => ({
+  type: types.GET_TASKS,
+  payload
+});
+
+export const getTasksRequest = {
+  type: types.GET_TASKS_REQUEST
+};
+
+export const getTasksSuccess = payload => ({
+  type: types.GET_TASKS_SUCCESS,
+  payload
+});
+
+export const getTasksFailure = payload => ({
+  type: types.GET_TASKS_FAILURE,
+  payload
+});
